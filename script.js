@@ -16,7 +16,7 @@ const auth = firebase.auth();
 // Set up Google Auth Provider with new Client ID
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
-  client_id: "237372006213-biqm03h90vcqt4i3f2vevc2tmu3o3jfj.apps.googleusercontent.com",
+  client_id: "327260610681-5oeqs5q1q6087653mvn26macj8hi3t3u.apps.googleusercontent.com",
 });
 
 // Toggle between Login and Signup forms
