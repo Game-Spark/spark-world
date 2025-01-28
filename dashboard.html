@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spark World - Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase CDN Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Welcome to Spark World</h1>
+      <p id="welcome-message"></p>
+    </header>
+
+    <main>
+      <button id="logout-button">Logout</button>
+      <h2>Your Stats</h2>
+      <div id="user-stats">
+        <!-- Here you can display user stats (e.g., level, achievements, etc.) -->
+        <p>Level: 1</p>
+        <p>Score: 0</p>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Spark World. All rights reserved.</p>
+    </footer>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>
