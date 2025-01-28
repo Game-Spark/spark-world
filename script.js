@@ -10,11 +10,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
 // Toggle between Login and Signup forms
 document.getElementById('switch-to-signup').addEventListener('click', (e) => {
@@ -30,7 +28,7 @@ document.getElementById('switch-to-login').addEventListener('click', (e) => {
 });
 
 // Handle Signup
-document.getElementById('signup-form').addEventListener('submit', async (e) => {
+document.getElementById('signup-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.getElementById('signup-email').value;
   const password = document.getElementById('signup-password').value;
@@ -42,39 +40,41 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     return;
   }
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    alert(`Signup successful! Welcome, ${userCredential.user.email}`);
-    document.getElementById('switch-to-login').click(); // Switch to login after signup
-  } catch (error) {
-    alert(`Signup failed: ${error.message}`);
-  }
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      alert(`Signup successful! Welcome, ${userCredential.user.email}`);
+      document.getElementById('switch-to-login').click(); // Switch to login after signup
+    })
+    .catch((error) => {
+      alert(`Signup failed: ${error.message}`);
+    });
 });
 
 // Handle Login
-document.getElementById('login-form').addEventListener('submit', async (e) => {
+document.getElementById('login-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    alert(`Login successful! Welcome back, ${userCredential.user.email}`);
-    window.location.href = "dashboard.html"; // Redirect to dashboard
-  } catch (error) {
-    alert(`Login failed: ${error.message}`);
-  }
+  auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      alert(`Login successful! Welcome back, ${userCredential.user.email}`);
+      window.location.href = "dashboard.html"; // Redirect to dashboard
+    })
+    .catch((error) => {
+      alert(`Login failed: ${error.message}`);
+    });
 });
 
 // Handle Google Login
-document.getElementById('google-login').addEventListener('click', async () => {
-  const provider = new GoogleAuthProvider();
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    alert(`Google login successful! Welcome, ${user.displayName}`);
-    window.location.href = "dashboard.html"; // Redirect to dashboard
-  } catch (error) {
-    alert(`Google login failed: ${error.message}`);
-  }
+document.getElementById('google-login').addEventListener('click', () => {
+  auth.signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
+      alert(`Google login successful! Welcome, ${user.displayName}`);
+      window.location.href = "dashboard.html"; // Redirect to dashboard
+    })
+    .catch((error) => {
+      alert(`Google login failed: ${error.message}`);
+    });
 });
