@@ -12,7 +12,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+
+// Set up Google Auth Provider with new Client ID
 const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({
+  client_id: "237372006213-biqm03h90vcqt4i3f2vevc2tmu3o3jfj.apps.googleusercontent.com",
+});
 
 // Toggle between Login and Signup forms
 document.getElementById('switch-to-signup').addEventListener('click', (e) => {
