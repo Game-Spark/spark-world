@@ -26,8 +26,15 @@ bgm.volume = 0.5; // Set volume to 50%
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();  // Set initial size based on window dimensions
+
+// Listen for window resizing to adjust the canvas size dynamically
+window.addEventListener('resize', resizeCanvas);
 
 let avatar = {
   x: canvas.width / 2,
