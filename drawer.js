@@ -1,5 +1,3 @@
-// drawer.js
-
 // Function to draw text in the game (used for displaying place and notifications)
 export function drawText(ctx, text, x, y) {
   ctx.fillStyle = "white";
@@ -37,43 +35,84 @@ export function drawMap(ctx, canvasWidth, canvasHeight) {
   ctx.fillRect(mapX + 150, mapY + 150, 50, 50);
 }
 
-// Function to draw the Town Square (for now simple background)
+// Function to draw the Town Square (enhanced with more details)
 export function drawTownSquare(ctx, canvasWidth, canvasHeight) {
-  ctx.fillStyle = "#A9A9A9"; // Town square background (grayish)
+  ctx.fillStyle = "#D3D3D3"; // Town square background (light gray)
   ctx.fillRect(0, 0, canvasWidth, canvasHeight); // Fill entire canvas
   
-  // Optionally: Draw simple landmarks or buildings
-  ctx.fillStyle = "#808080"; // Example building
-  ctx.fillRect(150, 100, 100, 200); // Simple building
-
-  // Draw other potential elements like benches, people, etc.
+  // Buildings in the town square
+  ctx.fillStyle = "#808080"; // Building color
+  ctx.fillRect(150, 100, 100, 200); // Example building 1 (large building)
+  ctx.fillRect(400, 150, 70, 150); // Example building 2 (smaller shop)
+  
+  // Roads (add gray roads with lines)
+  ctx.fillStyle = "#A9A9A9"; 
+  ctx.fillRect(100, 300, canvasWidth - 200, 50); // Road
+  
+  // Draw trees and plants
+  ctx.fillStyle = "#228B22"; // Tree foliage color
+  ctx.beginPath();
+  ctx.arc(100, 350, 20, 0, Math.PI * 2, true); // Tree 1
+  ctx.arc(500, 350, 20, 0, Math.PI * 2, true); // Tree 2
+  ctx.arc(700, 350, 20, 0, Math.PI * 2, true); // Tree 3
+  ctx.fill();
+  
+  // People (simple circles to represent characters walking)
+  ctx.fillStyle = "#FFD700"; // People color
+  ctx.beginPath();
+  ctx.arc(230, 400, 15, 0, Math.PI * 2, true); // Person 1
+  ctx.arc(320, 450, 15, 0, Math.PI * 2, true); // Person 2
+  ctx.arc(570, 460, 15, 0, Math.PI * 2, true); // Person 3
+  ctx.fill();
+  
+  // Optionally add signs or other details
+  ctx.fillStyle = "#8B4513"; // Sign color
+  ctx.fillRect(130, 120, 40, 20); // Small sign
+  ctx.fillRect(380, 150, 30, 15); // Sign near the shop
 }
 
-// Function to draw the Park (as a new location map)
+// Function to draw the Park (as an enhanced location map)
 export function drawPark(ctx, canvasWidth, canvasHeight) {
-  // Park background (greenish)
-  ctx.fillStyle = "#A3D977"; // Light green for park
+  // Park background (grassy green color)
+  ctx.fillStyle = "#A3D977"; 
   ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  // Trees (simple circles to represent trees)
-  ctx.fillStyle = "#2E8B57"; // Tree color
+  // Trees (lush, full trees in various sizes)
+  ctx.fillStyle = "#228B22"; // Dark green for trees
   ctx.beginPath();
-  ctx.arc(200, 300, 30, 0, Math.PI * 2, true); // Tree 1
-  ctx.arc(600, 400, 30, 0, Math.PI * 2, true); // Tree 2
-  ctx.arc(1000, 200, 30, 0, Math.PI * 2, true); // Tree 3
+  ctx.arc(200, 250, 40, 0, Math.PI * 2, true); // Tree 1
+  ctx.arc(600, 350, 40, 0, Math.PI * 2, true); // Tree 2
+  ctx.arc(1000, 150, 40, 0, Math.PI * 2, true); // Tree 3
+  ctx.fill();
+  
+  // Lake (add shimmering blue to represent water)
+  ctx.fillStyle = "#1E90FF"; // Lake color
+  ctx.beginPath();
+  ctx.ellipse(800, 500, 200, 100, 0, 0, Math.PI * 2); // Lake body
   ctx.fill();
 
-  // Draw a lake (a simple blue area)
-  ctx.fillStyle = "#00BFFF"; // Lake color
+  // Add benches
+  ctx.fillStyle = "#8B4513"; // Wood for benches
+  ctx.fillRect(300, 500, 120, 20); // Bench 1
+  ctx.fillRect(700, 500, 120, 20); // Bench 2
+  
+  // Add walking paths (curved)
+  ctx.strokeStyle = "#D3D3D3"; 
+  ctx.lineWidth = 6;
   ctx.beginPath();
-  ctx.ellipse(800, 600, 200, 100, 0, 0, Math.PI * 2);
+  ctx.moveTo(200, 400); // Starting point of path
+  ctx.quadraticCurveTo(400, 350, 600, 450); // Curve of the path
+  ctx.lineTo(600, 450); // End point of path
+  ctx.stroke();
+
+  // Optional: Draw flowers
+  ctx.fillStyle = "#FF1493"; // Flower color
+  ctx.beginPath();
+  ctx.arc(500, 450, 10, 0, Math.PI * 2, true); // Flower 1
+  ctx.arc(300, 400, 10, 0, Math.PI * 2, true); // Flower 2
   ctx.fill();
-
-  // Optional: Draw benches, bushes, etc.
-  ctx.fillStyle = "#8B4513"; // Wood color for benches
-  ctx.fillRect(300, 500, 80, 20); // Bench 1
-  ctx.fillRect(700, 500, 80, 20); // Bench 2
-
-  // Optionally add more park features like paths or flowers
+  
+  // Add more details (such as park benches, paths, etc.)
+  ctx.fillStyle = "#D2691E"; // Path color
+  ctx.fillRect(0, 590, canvasWidth, 20); // Path below the park
 }
-
