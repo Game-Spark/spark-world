@@ -36,6 +36,7 @@ resizeCanvas();  // Set initial size based on window dimensions
 // Listen for window resizing to adjust the canvas size dynamically
 window.addEventListener('resize', resizeCanvas);
 
+// Player data and location
 let avatar = {
   x: canvas.width / 2,
   y: canvas.height / 2,
@@ -43,18 +44,49 @@ let avatar = {
   color: "#FF5733",
 };
 
+let currentPlace = "Town Square"; // Starting place
+
+// Function to draw the map of locations (simple grid)
+function drawMap() {
+  const mapWidth = 300;
+  const mapHeight = 300;
+  const mapX = 20;
+  const mapY = 20;
+
+  // Draw background of the map
+  ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+  ctx.fillRect(mapX, mapY, mapWidth, mapHeight);
+
+  // Draw locations on the map (representing different places as simple squares)
+  ctx.fillStyle = "#00FF00";
+  ctx.fillRect(mapX + 50, mapY + 50, 50, 50); // Example location (next to town square)
+  ctx.fillStyle = "#FFD700";
+  ctx.fillRect(mapX + 150, mapY + 150, 50, 50); // Example location (a different place)
+}
+
+// Function to show the current place text
+function drawCurrentPlaceText() {
+  drawText(ctx, `You are in: ${currentPlace}`, canvas.width / 2, 30);
+}
+
 // Function to draw the initial game environment (town square)
 function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before each redraw
 
-  // Draw the town square
+  // Draw the town square background (this is just a simple rectangle right now)
   drawTownSquare(ctx, canvas.width, canvas.height);
+
+  // Draw the current place text
+  drawCurrentPlaceText();
 
   // Draw the avatar (player's character)
   drawAvatar(ctx, avatar.x, avatar.y, avatar.size, avatar.color);
 
+  // Draw the map
+  drawMap();
+
   // Optionally draw other game elements (like text)
-  drawText(ctx, "Welcome to the Town Square! Click to move your avatar.", 50, 50);
+  drawText(ctx, "Click to move your avatar. Move between different places.", canvas.width / 2, canvas.height - 50);
 }
 
 // Handle user interaction (click to move avatar)
@@ -66,8 +98,19 @@ canvas.addEventListener("click", (event) => {
     });
   }
 
+  // Move avatar to clicked position
   avatar.x = event.clientX;
   avatar.y = event.clientY;
+
+  // Update the current place based on position (basic place switching logic for demonstration)
+  if (event.clientX < canvas.width / 2 && event.clientY < canvas.height / 2) {
+    currentPlace = "Town Square"; // Top-left
+  } else if (event.clientX > canvas.width / 2 && event.clientY > canvas.height / 2) {
+    currentPlace = "Marketplace"; // Bottom-right
+  } else {
+    currentPlace = "Park"; // Other locations can be added similarly
+  }
+
   drawGame(); // Redraw the game state with the avatar at the new position
 });
 
