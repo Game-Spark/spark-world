@@ -33,3 +33,16 @@ auth.onAuthStateChanged((user) => {
     window.location.href = "index.html";
   }
 });
+
+// Handle Server Selection
+document.querySelectorAll('.server-button').forEach(button => {
+  button.addEventListener('click', (event) => {
+    const selectedServer = event.target.dataset.server;
+    document.getElementById('server-message').textContent = `You selected the ${selectedServer} server.`;
+
+    // You can now redirect to the game on the selected server, or store the server choice
+    setTimeout(() => {
+      window.location.href = `game.html?server=${selectedServer}`;  // Redirect to game with server info
+    }, 2000); // Show message for 2 seconds before redirecting (or do additional logic)
+  });
+});
