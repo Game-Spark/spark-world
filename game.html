@@ -10,8 +10,14 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-  <!-- Import ES Module for drawer.js -->
-  <script type="module" src="game.js"></script> <!-- game.js imports drawer.js internally -->
+  <!-- Import game.js (which imports drawer.js internally) -->
+  <script type="module" src="game.js"></script>
+
+  <!-- Background Music (BGM) -->
+  <audio id="bgm" loop autoplay>
+    <source src="town.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
 </head>
 <body>
   <div class="game-container">
