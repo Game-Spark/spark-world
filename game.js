@@ -1,3 +1,7 @@
+// game.js
+
+import { drawAvatar, drawText, drawRectangle } from './drawer.js';
+
 // Firebase configuration (same as before, ensure you're logged in before accessing game)
 const firebaseConfig = {
   apiKey: "AIzaSyAwRCCQ8F89i_G21aU10Iaba6FX-vZtA9o",
@@ -27,22 +31,23 @@ let avatar = {
   color: "#FF5733",
 };
 
-// Function to draw the avatar (simple circle)
-function drawAvatar() {
+// Draw the initial state of the game
+function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before each redraw
-  ctx.beginPath();
-  ctx.arc(avatar.x, avatar.y, avatar.size, 0, Math.PI * 2, false); // Draw a circle for the avatar
-  ctx.fillStyle = avatar.color;
-  ctx.fill();
-  ctx.closePath();
+
+  // Draw the avatar
+  drawAvatar(ctx, avatar.x, avatar.y, avatar.size, avatar.color);
+
+  // Optionally draw any other game elements (like text, buttons, objects)
+  drawText(ctx, "Click to move the avatar!", 50, 50);
 }
 
-// Function to update the avatar position based on click event
+// Handle user interaction (click to move avatar)
 canvas.addEventListener("click", (event) => {
   avatar.x = event.clientX;
   avatar.y = event.clientY;
-  drawAvatar(); // Redraw the avatar at the new position
+  drawGame(); // Redraw the game state with the avatar at the new position
 });
 
-// Initially draw the avatar
-drawAvatar();
+// Initial game render
+drawGame();
