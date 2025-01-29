@@ -22,9 +22,6 @@ const bgm = new Audio('town.mp3'); // Assuming town.mp3 is in the main directory
 bgm.loop = true;  // Loop the BGM
 bgm.volume = 0.5; // Set volume to 50%
 
-// Play the background music as soon as the game starts
-bgm.play();
-
 // Canvas setup
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -55,6 +52,13 @@ function drawGame() {
 
 // Handle user interaction (click to move avatar)
 canvas.addEventListener("click", (event) => {
+  // Play the background music on first click
+  if (bgm.paused) {
+    bgm.play().catch((error) => {
+      console.error("Failed to play audio: ", error);
+    });
+  }
+
   avatar.x = event.clientX;
   avatar.y = event.clientY;
   drawGame(); // Redraw the game state with the avatar at the new position
